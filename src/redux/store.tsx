@@ -1,8 +1,9 @@
 import { configureStore} from "@reduxjs/toolkit";
+import personajesSlice from "./personajesSlice";
 
 const store = configureStore({
    reducer: {
-    
+    personajes: personajesSlice.reducer
    }
 });
 
