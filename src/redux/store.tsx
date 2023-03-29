@@ -1,9 +1,11 @@
 import { configureStore} from "@reduxjs/toolkit";
+import { filterSlice } from "./filterSlice";
 import personajesSlice from "./personajesSlice";
 
 const store = configureStore({
    reducer: {
-    personajes: personajesSlice.reducer
+    personajes: personajesSlice.reducer,
+    filtro: filterSlice.reducer,
    }
 });
 

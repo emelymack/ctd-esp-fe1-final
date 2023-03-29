@@ -1,11 +1,14 @@
 import './filtros.css';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { setFilter } from '../../redux/filterSlice';
 
 const Filtros = () => {
-  const [ filterValue, setFilterValue ] = useState<string>('')
-  
+  const dispatch = useAppDispatch()
+  const filter = useAppSelector(state => state.filtro)
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilterValue(e.target.value)
+    dispatch(setFilter(e.target.value))
   }
 
   return (
@@ -16,6 +19,7 @@ const Filtros = () => {
         placeholder="Rick, Morty, Beth, Alien, ...etc" 
         name="nombre"
         onChange={onChange}
+        value={filter}
       />
     </div>
   )

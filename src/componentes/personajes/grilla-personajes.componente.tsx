@@ -15,17 +15,27 @@ import TarjetaPersonaje from './tarjeta-personaje.componente';
  */
 const GrillaPersonajes = () => {
   const {data, page} = useAppSelector(state => state.personajes)
+  const filter = useAppSelector(state => state.filtro)
   const dispatch = useAppDispatch()
   
   useEffect(() => {
-    dispatch(setPersonajesReducer(page))
-    // dispatch(setInfoReducer())
-  }, [page])
+    dispatch(setPersonajesReducer({page: page, filter: filter}))
+  }, [page, filter])
+
+  useEffect(() => {
+    if(filter === ''){
+      dispatch(setPersonajesReducer({page: 1, filter: filter}))
+    }
+  }, [filter])
+  
+  if(data.results === undefined) {
+    return <p style={{textAlign: 'center'}}>No se encontraron personajes con ese nombre</p>
+  }
 
   return (
     <div className="grilla-personajes">
       { data.results && data.results.map((elem) => (
-        <TarjetaPersonaje id={elem.id} name={elem.name} isFavorito={false} image={elem.image} />
+        <TarjetaPersonaje key={elem.id} id={elem.id} name={elem.name} isFavorito={false} image={elem.image} />
       )) }
     </div>
   )

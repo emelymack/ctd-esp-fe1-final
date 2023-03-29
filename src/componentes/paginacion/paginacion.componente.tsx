@@ -13,11 +13,13 @@ import './paginacion.css';
  */
 const Paginacion = () => {
   const pagina = useAppSelector(state => state.personajes.page)
-  const nextPage = useAppSelector(state => state.personajes.data.info.next)
+  const nextPage = useAppSelector(state => state.personajes.data.info?.next)
   const dispatch = useAppDispatch()
 
   const next = () => {
-    dispatch(setPage(pagina+1))
+    if(nextPage !== null){
+      dispatch(setPage(pagina+1))
+    }
   }
 
   const previous = () => {

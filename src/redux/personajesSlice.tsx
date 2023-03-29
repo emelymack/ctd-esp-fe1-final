@@ -1,4 +1,4 @@
-import { AnyAction, createAsyncThunk, createSlice, isFulfilled, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getPersonajes, getPersonajesResult } from '../queries/personajes.queries';
 import { Personaje, PersonajesState } from '../types/personaje.types';
 
@@ -38,6 +38,9 @@ const personajesSlice = createSlice({
       .addCase(setPersonajesReducer.fulfilled, (state, action: PayloadAction<getPersonajesResult>) =>{
         state.data.results = action.payload.results
         state.data.info = action.payload.info
+      })
+      .addCase(setPersonajesReducer.rejected, () => {
+        alert("Error")
       })
   }
 })
