@@ -96,14 +96,14 @@ Las siguientes funcionalidades son requisitos mínimos necesarios para la aproba
 
   1 - La página de inicio que debe contar con:
 
-          * Panel de filtros:
-            * Contendrá un input en donde el usuario pueda ingresar cualquier texto que desee para hacer un filtro sobre los personajes.
-            * Si el usuario borra el texto ingresado, se deberá mostrar el estado inicial, es decir la búsqueda sin filtro.
-            * Se deberá incluir un boton de "Limpiar filtros", el cual deberá borrar el texto dentro del input y mostrar el estado inicial, es decir la búsqueda sin filtro.
+          * Panel de filtros: ✅
+            * Contendrá un input en donde el usuario pueda ingresar cualquier texto que desee para hacer un filtro sobre los personajes. ✅
+            * Si el usuario borra el texto ingresado, se deberá mostrar el estado inicial, es decir la búsqueda sin filtro. ✅
+            * Se deberá incluir un boton de "Limpiar filtros", el cual deberá borrar el texto dentro del input y mostrar el estado inicial, es decir la búsqueda sin filtro. ✅
 
           * Listado de personajes
-            * Deberá mostrar los personajes, que estarán representados por tarjetas con información sobre cada uno de ellos.
-            * Como máximo se deben mostrar en pantalla 20 tarjetas de personajes por página.
+            * Deberá mostrar los personajes, que estarán representados por tarjetas con información sobre cada uno de ellos. ✅
+            * Como máximo se deben mostrar en pantalla 20 tarjetas de personajes por página. ✅
             * Se deberá poder marcar y desmarcar a cada personaje como favorito desde su tarjeta individual, teniendo que persistir ese estado en la aplicación.
             * Se deberá poder diferenciar si un personaje se encuentra marcado como favorito o no.
 
@@ -205,15 +205,15 @@ Ahora que ya vimos cuáles son los requerimientos y funcionalidades que deberás
 
 Instalar Typescript
 
-`npm install typescript@4.9.5` ✅
+`npm install typescript@4.9.5`
 
 Instalar Tipos de React
 
-`npm install --dev @types/node@18.13.0 @types/react@18.0.27 @types/react-dom@18.0.10` ✅
+`npm install --dev @types/node@18.13.0 @types/react@18.0.27 @types/react-dom@18.0.10`
 
 Instalar Redux
 
-`npm install react-redux@8.0.5 @types/react-redux@7.1.25 @reduxjs/toolkit@1.9.2` ✅
+`npm install react-redux@8.0.5 @types/react-redux@7.1.25 @reduxjs/toolkit@1.9.2`
 
 Y finalmente instalar Saga (Si lo preferis en vez de Thunk)
 
@@ -221,7 +221,7 @@ Y finalmente instalar Saga (Si lo preferis en vez de Thunk)
 
 ### Paso 1 - Configuración de Redux 
 
-Configuracion de la Store ✅
+Configuracion de la Store
 
 ``` store.ts
 import { configureStore} from "@reduxjs/toolkit";
@@ -237,7 +237,7 @@ export type AppDispatch = typeof store.dispatch;
 export default store;
 ``` 
 
-Luego en el App.jsx deberás configurar el Provider ✅
+Luego en el App.jsx deberás configurar el Provider
 ``` index.ts
   import {Provider} from "react-redux";
 
@@ -247,7 +247,7 @@ Luego en el App.jsx deberás configurar el Provider ✅
 ```
 ### Paso 2 - Configuración de Saga
 
-Este paso es opcional, solo lo necesitamos si vamos a utilizar Saga y no Thunk. ❌
+Este paso es opcional, solo lo necesitamos si vamos a utilizar Saga y no Thunk.
 
 ``` store.ts
 // Importamos el saga de redux-saga
@@ -270,12 +270,12 @@ export const store = configureStore(
 ```
 
 ### Paso 3 - Tipado de los componentes existentes
-Cómo te mencionamos anteriormente, el proyecto cuenta con algunos componentes que te recomendamos utilizar, pero recordar que debes tiparlos con TypeScript. ✅
+Cómo te mencionamos anteriormente, el proyecto cuenta con algunos componentes que te recomendamos utilizar, pero recordar que debes tiparlos con TypeScript.
 ### Paso 4 - Modelado
 
 Con Redux, TypeScript y Thunk (o Saga!) ya configurados, podes proceder al armado de las interfaces del modelo. Es decir, crear las interfaces de los objetos que vas a usar en el proyecto. 
 Para esto, te recomendamos que visualizas el diseño final, e identifiques los campos, variables y tipos que vas a necesitar en tus objetos para tiparlos correctamente. 
-No hace falta que sean perfectos en esta etapa, los podrás ajustar después, pero van a ser de gran ayuda para arrancar a trabajar! ✅
+No hace falta que sean perfectos en esta etapa, los podrás ajustar después, pero van a ser de gran ayuda para arrancar a trabajar! 
 
 ### Paso 5 - Creación del estado y el/los reducer
 

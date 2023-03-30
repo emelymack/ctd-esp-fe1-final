@@ -32,11 +32,21 @@ const personajesSlice = createSlice({
     setPage: (state, action: PayloadAction<number>) => {
       state.page = action.payload
     },
+    setFavorito: (state, action: PayloadAction<number>) => {
+      state.data.results.map((personaje) => {
+        if(personaje.id === action.payload){
+          personaje.isFavorito = true
+        }
+      })
+    }
   },
   extraReducers: (builder) => {
     builder
       .addCase(setPersonajesReducer.fulfilled, (state, action: PayloadAction<getPersonajesResult>) =>{
-        state.data.results = action.payload.results
+        state.data.results = action.payload.results.map(item => {
+          const isFavorito = false;
+          return {...item, isFavorito}
+        })
         state.data.info = action.payload.info
       })
       .addCase(setPersonajesReducer.rejected, () => {
@@ -46,4 +56,4 @@ const personajesSlice = createSlice({
 })
 
 export default personajesSlice;
-export const {setPage} = personajesSlice.actions;
+export const {setPage, setFavorito} = personajesSlice.actions;

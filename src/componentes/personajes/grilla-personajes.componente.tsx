@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { getPersonajes } from '../../queries/personajes.queries';
 import { setPersonajesReducer } from '../../redux/personajesSlice';
+import { Personaje } from '../../types/personaje.types';
 import './grilla-personajes.css';
 import TarjetaPersonaje from './tarjeta-personaje.componente';
 
@@ -16,6 +17,7 @@ import TarjetaPersonaje from './tarjeta-personaje.componente';
 const GrillaPersonajes = () => {
   const {data, page} = useAppSelector(state => state.personajes)
   const filter = useAppSelector(state => state.filtro)
+  const favoritos = useAppSelector(state => state.favoritos)
   const dispatch = useAppDispatch()
   
   useEffect(() => {
@@ -32,13 +34,31 @@ const GrillaPersonajes = () => {
     return <p style={{textAlign: 'center'}}>No se encontraron personajes con ese nombre</p>
   }
 
+  const getAllPersonajes = (): Personaje[] => {
+    const personajes = data.results.map(item => {
+      let isFavorito = false;
+        favoritos.results.some(elem => {
+          if(elem.id === item.id){
+            isFavorito = true
+          }
+        })
+      return {...item, isFavorito}
+    })
+    // localStorage.setItem("favoritos", JSON.stringify(favoritos))
+    return personajes
+  }
+  const personajes = getAllPersonajes()
+
   return (
     <div className="grilla-personajes">
-      { data.results && data.results.map((elem) => (
-        <TarjetaPersonaje key={elem.id} id={elem.id} name={elem.name} isFavorito={false} image={elem.image} />
-      )) }
+      { data.results && personajes.map((elem) => (
+          <TarjetaPersonaje key={elem.id} id={elem.id} name={elem.name} isFavorito={elem.isFavorito} image={elem.image} />
+        )) 
+      }
     </div>
   )
 }
+
+
  
 export default GrillaPersonajes;
