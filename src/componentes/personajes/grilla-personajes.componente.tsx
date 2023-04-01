@@ -29,13 +29,9 @@ const GrillaPersonajes = () => {
       dispatch(setPersonajesReducer({page: 1, filter: filter}))
     }
   }, [filter])
-  
-  if(data.results === undefined) {
-    return <p style={{textAlign: 'center'}}>No se encontraron personajes con ese nombre</p>
-  }
 
-  const getAllPersonajes = (): Personaje[] => {
-    const personajes = data.results.map(item => {
+  const getAllPersonajes = (): Personaje[] | null => {
+    const personajes = data.results?.map(item => {
       let isFavorito = false;
         favoritos.results.some(elem => {
           if(elem.id === item.id){
@@ -45,13 +41,21 @@ const GrillaPersonajes = () => {
       return {...item, isFavorito}
     })
     // localStorage.setItem("favoritos", JSON.stringify(favoritos))
-    return personajes
+    if(personajes){
+      return personajes
+    }
+    return null
   }
+  
   const personajes = getAllPersonajes()
+
+  if(personajes === null) {
+    return <p style={{textAlign: 'center'}}>No se encontraron personajes con ese nombre</p>
+  }
 
   return (
     <div className="grilla-personajes">
-      { data.results && personajes.map((elem) => (
+      { data.results && personajes?.map((elem) => (
           <TarjetaPersonaje key={elem.id} id={elem.id} name={elem.name} isFavorito={elem.isFavorito} image={elem.image} />
         )) 
       }

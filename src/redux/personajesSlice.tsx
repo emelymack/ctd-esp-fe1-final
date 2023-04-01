@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getPersonajes, getPersonajesResult } from '../queries/personajes.queries';
-import { Personaje, PersonajesState } from '../types/personaje.types';
+import { PersonajesState } from '../types/personaje.types';
 
 const initialState: PersonajesState ={
   data: {
@@ -33,7 +33,7 @@ const personajesSlice = createSlice({
       state.page = action.payload
     },
     setFavorito: (state, action: PayloadAction<number>) => {
-      state.data.results.map((personaje) => {
+      state.data.results?.map((personaje) => {
         if(personaje.id === action.payload){
           personaje.isFavorito = true
         }
@@ -43,11 +43,16 @@ const personajesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(setPersonajesReducer.fulfilled, (state, action: PayloadAction<getPersonajesResult>) =>{
-        state.data.results = action.payload.results.map(item => {
-          const isFavorito = false;
-          return {...item, isFavorito}
-        })
-        state.data.info = action.payload.info
+        if(action.payload.results && action.payload.info) {
+          state.data.results = action.payload.results.map(item => {
+            const isFavorito = false;
+            return {...item, isFavorito}
+          })
+          state.data.info = action.payload.info
+        } else{
+          state.data.results = null;
+          state.data.info = null;
+        }
       })
       .addCase(setPersonajesReducer.rejected, () => {
         alert("Error")

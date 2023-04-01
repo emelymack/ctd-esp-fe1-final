@@ -26,8 +26,8 @@ export interface InfoState {
 }
 export interface PersonajesState {
   data: {
-    info: InfoState,
-    results: Personaje[]
+    info: InfoState | null,
+    results: Personaje[] | null
   },
   page: number
 }
