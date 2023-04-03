@@ -13,8 +13,10 @@ export interface Personaje{
 }
 
 export interface PersonajeWithDetail extends Personaje{
-  planeta: string;
-  genero: string;
+  origin: {
+    name: string,
+  };
+  gender: string;
   episodios: Episodio[];
 }
 

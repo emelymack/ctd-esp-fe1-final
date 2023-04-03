@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import GrillaPersonajes from "../componentes/personajes/grilla-personajes.componente";
 import TarjetaPersonaje from "../componentes/personajes/tarjeta-personaje.componente";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { deleteFavorito } from "../redux/favoritosSlice";
+import { deleteFavoritos } from "../redux/favoritosSlice";
 
 /**
  * Esta es la pagina de favoritos. Aquí se deberan ver todos los personajes marcados como favoritos
@@ -18,7 +18,7 @@ const PaginaFavoritos = () => {
 
   const eliminarTodos = () =>{
     favoritos.results.map(elem => {
-      dispatch(deleteFavorito(elem))
+      dispatch(deleteFavoritos(elem))
     })
   }
 

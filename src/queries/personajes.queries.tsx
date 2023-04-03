@@ -1,4 +1,4 @@
-import { InfoState, Personaje } from "../types/personaje.types";
+import { InfoState, Personaje, PersonajeWithDetail } from "../types/personaje.types";
 
 const baseUrl = 'https://rickandmortyapi.com/api'
 
@@ -26,4 +26,10 @@ export const getPersonajes = async ({page, filter}: getPersonajesProps): Promise
       results: null
     }
   }
+}
+
+export const getPersonaje = async (id: string): Promise<PersonajeWithDetail> => {
+  const res = await fetch(`${baseUrl}/character/${id}`);
+  const data = await res.json();
+  return data;
 }

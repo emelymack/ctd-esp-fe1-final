@@ -13,12 +13,16 @@ export const favoritosSlice = createSlice({
   initialState,
   reducers: {
     setFavoritos: (state, action: PayloadAction<Personaje>) =>{
-      state.results.push(action.payload)
+      if(!action.payload.isFavorito){
+        state.results = state.results.filter(elem => elem.id != action.payload.id)
+      } else{
+        state.results.push(action.payload)
+      }
     },
-    deleteFavorito: (state, action: PayloadAction<Personaje>) => {
-      state.results = state.results.filter(elem => elem.id != action.payload.id)
+    deleteFavoritos: (state) => {
+      state.results = []
     }
   }
 })
 
-export const { setFavoritos, deleteFavorito } = favoritosSlice.actions;
+export const { setFavoritos, deleteFavoritos } = favoritosSlice.actions;

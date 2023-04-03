@@ -1,10 +1,10 @@
-import { SyntheticEvent, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { deleteFavorito, setFavoritos } from '../../redux/favoritosSlice';
-import { setFavorito, setPersonajesReducer } from '../../redux/personajesSlice';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks/hooks';
+import { setFavoritos } from '../../redux/favoritosSlice';
 import { Personaje } from '../../types/personaje.types';
 import BotonFavorito from '../botones/boton-favorito.componente';
 import './tarjeta-personaje.css';
+import { Link } from 'react-router-dom';
 
 /**
  * Tarjeta para cada personaje dentro de la grilla de personajes. 
@@ -18,30 +18,17 @@ import './tarjeta-personaje.css';
 const TarjetaPersonaje = ({id, name, isFavorito, image}: Personaje) => {
   const dispatch = useAppDispatch()
 
-  const toggleFavorito = () => {
-    console.log(isFavorito);
-    const checkFavorito = isFavorito ? false : true
-    
-    if(isFavorito) {
-      dispatch(deleteFavorito({id: id, name: name, isFavorito: false, image: image})) 
-    } else{
-      dispatch(setFavoritos({
-        id: id,
-        name: name,
-        isFavorito: checkFavorito,
-        image: image
-      }))
-      dispatch(setFavorito(id))
-    }
-  }
-  
-    return <div className="tarjeta-personaje">
+  return (
+    <div className="tarjeta-personaje">
         <img src={image} alt={name}/>
         <div className="tarjeta-personaje-body">
+          <Link to={`/detalle/${id}`}>
             <span>{name}</span>
-            <BotonFavorito isFavorito={isFavorito} onClick={toggleFavorito} />
+          </Link>
+          <BotonFavorito isFavorito={isFavorito} onClick={() => dispatch(setFavoritos({id: id, name: name, isFavorito: !isFavorito, image: image}))} />
         </div>
     </div>
+  )
 }
 
 export default TarjetaPersonaje;
