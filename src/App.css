@@ -24,7 +24,7 @@ button.primary {
 }
 
 
-button.primary[disabled] {
+button.primary[disabled], button.danger[disabled] {
     background-color: rgb(128, 134, 140);
 }
 

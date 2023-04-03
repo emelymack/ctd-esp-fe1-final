@@ -2,11 +2,12 @@ import "./Detalle.css";
 import BotonFavorito from "../componentes/botones/boton-favorito.componente";
 import TarjetaEpisodio from "../componentes/episodios/tarjeta-episodio.componente";
 import { useEffect, useState } from "react";
-import { PersonajeWithDetail } from "../types/personaje.types";
+import { Episodio, PersonajeWithDetail } from "../types/personaje.types";
 import { setFavoritos } from '../redux/favoritosSlice';
 import { useParams } from "react-router-dom";
 import { getPersonaje } from "../queries/personajes.queries";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { getMultipleEpisodios } from "../queries/episodios.queries";
 
 /**
  * Esta es la pagina de detalle. Aqui se puede mostrar la vista sobre el personaje seleccionado junto con la lista de episodios en los que aparece
@@ -25,14 +26,29 @@ const PaginaDetalle = () => {
   const {id} = useParams();
   const [ personaje, setPersonaje ] = useState<PersonajeWithDetail | undefined>(undefined);
   const [ isFavorito, setIsFavorito ] = useState(false)
+  const [ episodios, setEpisodios ] = useState<Episodio[]>([])
+  const [ arrayEpisodios, setArrayEpisodios ] = useState<string[]>([])
   const favoritos = useAppSelector(state => state.favoritos)
   const dispatch = useAppDispatch()
+
+  const idEpisodios = () => {
+    const arrayEpisodios: string[] = []
+    personaje?.episode.map(elem => {
+      const substr = elem.substring(elem.lastIndexOf('/')+1)
+      arrayEpisodios.push(substr)
+    })
+    return arrayEpisodios;
+  }
 
   const getData = async() => {
     if(id){
       const res = await getPersonaje(id)
       setPersonaje(res)
     }
+  }
+  const getEpisodios = async() => {
+    const getEpisodios = await getMultipleEpisodios(arrayEpisodios)
+    getEpisodios && setEpisodios(getEpisodios)
   }
   useEffect(() => {
     getData()
@@ -41,32 +57,38 @@ const PaginaDetalle = () => {
     favoritos.results.map(elem => {
       elem.id === personaje?.id && setIsFavorito(true)
     })
-  }, [personaje])
+    setArrayEpisodios(idEpisodios())    
+    console.log(isFavorito);
+    
+  }, [personaje, isFavorito])
+  useEffect(() => {
+    getEpisodios()
+  }, [arrayEpisodios])
 
-    return <div className="container">
-        <h3>{personaje?.name}</h3>
-        <div className={"detalle"}>
-            <div className={"detalle-header"}>
-                <img src={personaje?.image} alt="Rick Sanchez"/>
-                <div className={"detalle-header-texto"}>
+  return <div className="container">
+      <h3>{personaje?.name}</h3>
+      <div className={"detalle"}>
+          <div className={"detalle-header"}>
+              <img src={personaje?.image} alt="Rick Sanchez"/>
+              <div className={"detalle-header-texto"}>
 
-                    <p>{personaje?.name}</p>
-                    <p>Planeta: {personaje?.origin.name}</p>
-                    <p>Genero: {personaje?.gender}</p>
-                </div>
-                {personaje && <BotonFavorito isFavorito={isFavorito} onClick={() => {
-                  dispatch(setFavoritos({id:personaje.id, name: personaje.name, isFavorito: !isFavorito, image: personaje.image}))
-                  setIsFavorito(false)
-                }} />}
-            </div>
-        </div>
-        <h4>Lista de episodios donde apareció el personaje</h4>
-        <div className={"episodios-grilla"}>
-            <TarjetaEpisodio />
-            <TarjetaEpisodio />
-            <TarjetaEpisodio />
-        </div>
-    </div>
+                  <p>{personaje?.name}</p>
+                  <p>Planeta: {personaje?.origin.name}</p>
+                  <p>Genero: {personaje?.gender}</p>
+              </div>
+              {personaje && <BotonFavorito isFavorito={isFavorito} onClick={() => {
+                dispatch(setFavoritos({id:personaje.id, name: personaje.name, isFavorito: !isFavorito, image: personaje.image}))
+                setIsFavorito(!isFavorito)
+              }} />}
+          </div>
+      </div>
+      <h4>Lista de episodios donde apareció el personaje</h4>
+      <div className={"episodios-grilla"}>
+        {episodios.length > 0 && episodios.map(elem => (
+          <TarjetaEpisodio key={elem.id} episodio={elem} />
+        ))}
+      </div>
+  </div>
 }
 
 export default PaginaDetalle

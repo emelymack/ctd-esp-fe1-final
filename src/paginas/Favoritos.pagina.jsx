@@ -25,7 +25,7 @@ const PaginaFavoritos = () => {
   return <div className="container">
       <div className="actions">
           <h3>Personajes Favoritos</h3>
-          <button className="danger" onClick={eliminarTodos}>Eliminar todos</button>
+          <button className="danger" disabled={favoritos.results.length < 1 ? true : false} onClick={eliminarTodos}>Eliminar todos</button>
       </div>
       {favoritos.results.length === 0 && <h4 style={{textAlign: 'center'}}>Aún no marcaste ningún personaje como favorito!</h4>}
       {favoritos && <GrillaPersonajes personajes={favoritos.results} />}

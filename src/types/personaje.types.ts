@@ -17,7 +17,7 @@ export interface PersonajeWithDetail extends Personaje{
     name: string,
   };
   gender: string;
-  episodios: Episodio[];
+  episode: string[];
 }
 
 export interface InfoState {
@@ -34,9 +34,9 @@ export interface PersonajesState {
   page: number
 }
 
-interface Episodio{
+export interface Episodio{
   id: number;
-  nombre: string;
-  episodio: string;
-  fechaLanzamiento: string;
+  name: string;
+  episode: string;
+  air_date: string;
 }

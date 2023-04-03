@@ -121,12 +121,12 @@ Los siguientes aspectos son extras al requisito mínimo de aprobación que será
     * La página de favoritos:
       * Podrá contar con un botón de "Eliminar todos", que deberá desmarcar todos los personajes del listado de favoritos y los mismos no deberán aparecer marcados como favoritos en la página principal. ✅
 
-    * Realización de una tercer página de vista de cada personaje:
+    * Realización de una tercer página de vista de cada personaje: ✅
     Al hacer click sobre un personaje deberá redirigirnos a está página.
-        * Va a requerir de la invocación de la API de [Episodios](https://rickandmortyapi.com/documentation/#get-multiple-episodes) de Rick and Morty.
+        * Va a requerir de la invocación de la API de [Episodios](https://rickandmortyapi.com/documentation/#get-multiple-episodes) de Rick and Morty. ✅
         * Dentro de la vista de cada personaje:
-           * Se mostrará un listado de los episodios en los cuales aparece.
-           * También podríamos indicar si el personaje está marcado como favorito o no, y junto con la posibilidad de marcarlo o desmarcarlo.
+           * Se mostrará un listado de los episodios en los cuales aparece. ✅
+           * También podríamos indicar si el personaje está marcado como favorito o no, y junto con la posibilidad de marcarlo o desmarcarlo. ✅
 
 ### Resultado final
 
