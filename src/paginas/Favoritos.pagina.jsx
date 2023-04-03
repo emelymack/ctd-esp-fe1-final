@@ -20,11 +20,7 @@ const PaginaFavoritos = () => {
           <button className="danger">Test Button</button>
       </div>
       {favoritos.results.length === 0 && <h4 style={{textAlign: 'center'}}>Aún no marcaste ningún personaje como favorito!</h4>}
-      <div className="grilla-personajes">
-        {favoritos && favoritos.results.map(elem => (
-          <TarjetaPersonaje key={elem.id} id={elem.id} name={elem.name} isFavorito={elem.isFavorito} image={elem.image} />
-        ))}
-      </div>
+      {favoritos && <GrillaPersonajes personajes={favoritos.results} />}
   </div>
 }
 

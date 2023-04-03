@@ -104,14 +104,14 @@ Las siguientes funcionalidades son requisitos mínimos necesarios para la aproba
           * Listado de personajes
             * Deberá mostrar los personajes, que estarán representados por tarjetas con información sobre cada uno de ellos. ✅
             * Como máximo se deben mostrar en pantalla 20 tarjetas de personajes por página. ✅
-            * Se deberá poder marcar y desmarcar a cada personaje como favorito desde su tarjeta individual, teniendo que persistir ese estado en la aplicación.
-            * Se deberá poder diferenciar si un personaje se encuentra marcado como favorito o no.
+            * Se deberá poder marcar y desmarcar a cada personaje como favorito desde su tarjeta individual, teniendo que persistir ese estado en la aplicación. ✅
+            * Se deberá poder diferenciar si un personaje se encuentra marcado como favorito o no. ✅
 
   2 - La página de favoritos que deberá cumplir con los siguientes requisitos:
 
-            *  Todos los personaje marcados como favoritos, deberán aparecer dentro del listado de favoritos en la segunda página de la aplicación.
-            *  Si el usuario desmarca un personaje como favorito el mismo deberá desaparecer del listado de favoritos.
-            *  Un personaje que haya sido desmarcado de los favoritos, podrá ser marcado nuevamente desde la pantalla de inicio y deberá aparecer en el listado otra vez.
+            *  Todos los personaje marcados como favoritos, deberán aparecer dentro del listado de favoritos en la segunda página de la aplicación. ✅
+            *  Si el usuario desmarca un personaje como favorito el mismo deberá desaparecer del listado de favoritos. ✅
+            *  Un personaje que haya sido desmarcado de los favoritos, podrá ser marcado nuevamente desde la pantalla de inicio y deberá aparecer en el listado otra vez. ✅
     
 
 ### Funcionalidades extras

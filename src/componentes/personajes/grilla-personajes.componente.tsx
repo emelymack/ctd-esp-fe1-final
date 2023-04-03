@@ -14,10 +14,12 @@ import TarjetaPersonaje from './tarjeta-personaje.componente';
  * 
  * @returns JSX Element 
  */
-const GrillaPersonajes = () => {
-  const {data, page} = useAppSelector(state => state.personajes)
+interface Props {
+  personajes: Personaje[] | null
+}
+const GrillaPersonajes = ({personajes}: Props) => {
+  const {page} = useAppSelector(state => state.personajes)
   const filter = useAppSelector(state => state.filtro)
-  const favoritos = useAppSelector(state => state.favoritos)
   const dispatch = useAppDispatch()
   
   useEffect(() => {
@@ -30,24 +32,6 @@ const GrillaPersonajes = () => {
     }
   }, [filter])
 
-  const getAllPersonajes = (): Personaje[] | null => {
-    const personajes = data.results?.map(item => {
-      let isFavorito = false;
-        favoritos.results.some(elem => {
-          if(elem.id === item.id){
-            isFavorito = true
-          }
-        })
-      return {...item, isFavorito}
-    })
-    // localStorage.setItem("favoritos", JSON.stringify(favoritos))
-    if(personajes){
-      return personajes
-    }
-    return null
-  }
-  
-  const personajes = getAllPersonajes()
 
   if(personajes === null) {
     return <p style={{textAlign: 'center'}}>No se encontraron personajes con ese nombre</p>
@@ -55,7 +39,7 @@ const GrillaPersonajes = () => {
 
   return (
     <div className="grilla-personajes">
-      { data.results && personajes?.map((elem) => (
+      { personajes && personajes?.map((elem) => (
           <TarjetaPersonaje key={elem.id} id={elem.id} name={elem.name} isFavorito={elem.isFavorito} image={elem.image} />
         )) 
       }

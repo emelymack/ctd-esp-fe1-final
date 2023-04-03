@@ -1,6 +1,6 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { setFavoritos } from '../../redux/favoritosSlice';
+import { deleteFavorito, setFavoritos } from '../../redux/favoritosSlice';
 import { setFavorito, setPersonajesReducer } from '../../redux/personajesSlice';
 import { Personaje } from '../../types/personaje.types';
 import BotonFavorito from '../botones/boton-favorito.componente';
@@ -19,11 +19,16 @@ const TarjetaPersonaje = ({id, name, isFavorito, image}: Personaje) => {
   const dispatch = useAppDispatch()
 
   const toggleFavorito = () => {
-    if(!isFavorito){
+    console.log(isFavorito);
+    const checkFavorito = isFavorito ? false : true
+    
+    if(isFavorito) {
+      dispatch(deleteFavorito({id: id, name: name, isFavorito: false, image: image})) 
+    } else{
       dispatch(setFavoritos({
         id: id,
         name: name,
-        isFavorito: true,
+        isFavorito: checkFavorito,
         image: image
       }))
       dispatch(setFavorito(id))
