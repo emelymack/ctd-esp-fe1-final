@@ -119,7 +119,7 @@ Las siguientes funcionalidades son requisitos mínimos necesarios para la aproba
 Los siguientes aspectos son extras al requisito mínimo de aprobación que serán tenidos en cuenta para aumentar la nota final, siempre y cuando su funcionamiento sea correcto:
 
     * La página de favoritos:
-      * Podrá contar con un botón de "Eliminar todos", que deberá desmarcar todos los personajes del listado de favoritos y los mismos no deberán aparecer marcados como favoritos en la página principal.
+      * Podrá contar con un botón de "Eliminar todos", que deberá desmarcar todos los personajes del listado de favoritos y los mismos no deberán aparecer marcados como favoritos en la página principal. ✅
 
     * Realización de una tercer página de vista de cada personaje:
     Al hacer click sobre un personaje deberá redirigirnos a está página.
