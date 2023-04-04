@@ -9,7 +9,6 @@ import {Provider} from "react-redux";
 import store from './redux/store';
 
 function App() {
-  document.title = 'Mack Emely | Proyecto Final Especialización Front I';
   return (
     <Provider store={store}>
       <div className="App">
