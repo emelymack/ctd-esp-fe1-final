@@ -31,7 +31,8 @@ export interface PersonajesState {
     info: InfoState | null,
     results: Personaje[] | null
   },
-  page: number
+  page: number,
+  status: string | null
 }
 
 export interface Episodio{

@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { setPersonajesReducer } from "../redux/personajesSlice";
 import { setFilter } from "../redux/filterSlice";
 import { Personaje } from "../types/personaje.types";
+import { getAllPersonajes } from "../componentes/functions/functions.personajes";
  
 /**
  * Esta es la pagina principal. Aquí se debera ver el panel de filtros junto con la grilla de personajes.
@@ -15,33 +16,16 @@ import { Personaje } from "../types/personaje.types";
  * @returns la pagina de inicio
  */
 const PaginaInicio = () => {
-  const dispatch = useAppDispatch()
-  const {data} = useAppSelector(state => state.personajes)
+  const data = useAppSelector(state => state.personajes.data)
   const favoritos = useAppSelector(state => state.favoritos)
+  const personajes = getAllPersonajes({data, favoritos})
+  const dispatch = useAppDispatch()
 
   const limpiarFiltros = () => {
     dispatch(setPersonajesReducer({page: 1, filter: ''}))
     dispatch(setFilter(''))
   }
-
-  const getAllPersonajes = (): Personaje[] | null => {
-    const personajes = data.results?.map(item => {
-      let isFavorito = false;
-        favoritos.results.some(elem => {
-          if(elem.id === item.id){
-            isFavorito = true
-          }
-        })
-      return {...item, isFavorito}
-    })
-    // localStorage.setItem("favoritos", JSON.stringify(favoritos))
-    if(personajes){
-      return personajes
-    }
-    return null
-  }
   
-  const personajes = getAllPersonajes()
   return <div className="container">
       <div className="actions">
           <h3>Catálogo de Personajes</h3>

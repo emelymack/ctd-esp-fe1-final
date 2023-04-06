@@ -11,20 +11,12 @@ interface getPersonajesProps {
   filter?: string | null;
 }
 export const getPersonajes = async ({page, filter}: getPersonajesProps): Promise<getPersonajesResult> => {
-  try{
-    const res = await fetch(`${baseUrl}/?page=${page}&name=${filter}`);
-    const data = await res.json();
-    if(res.ok){
-      return data;
-    } else{
-      throw new Error ('Ha habido un error')
-    }
-  }
-  catch{
-    return {
-      info: null,
-      results: null
-    }
+  const res = await fetch(`${baseUrl}/?page=${page}&name=${filter}`);
+  const data = await res.json();
+  if(res.ok){
+    return data;
+  } else{
+    throw new Error("Error. Intente de nuevo más tarde")
   }
 }
 

@@ -13,6 +13,10 @@ interface Props{
   isFavorito: boolean;
   onClick: () => void
 }
+/**
+ * @param {boolean} isFavorito si el personaje fue marcado como favorito
+ * @returns {JSX.Element} componente botón favorito
+ */
 const BotonFavorito = ({isFavorito, onClick}: Props) => {
     const src = isFavorito ? "/imagenes/star-filled.png" : "/imagenes/star.png"
     

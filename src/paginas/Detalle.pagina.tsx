@@ -5,16 +5,14 @@ import { useEffect, useState } from "react";
 import { Episodio, PersonajeWithDetail } from "../types/personaje.types";
 import { setFavoritos } from '../redux/favoritosSlice';
 import { useParams } from "react-router-dom";
-import { getPersonaje } from "../queries/personajes.queries";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { getMultipleEpisodios } from "../queries/episodios.queries";
+import { getEpisodios, idEpisodios } from "../componentes/functions/functions.episodios";
+import { getData } from "../componentes/functions/functions.personajes";
 
 /**
  * Esta es la pagina de detalle. Aqui se puede mostrar la vista sobre el personaje seleccionado junto con la lista de episodios en los que aparece
  * 
  * EL TRABAJO SOBRE ESTE ARCHIVO ES OPCIONAL Y NO ES REQUISITO DE APROBACION
- * 
- * 
  * 
  * Uso: 
  * ``` <PaginaDetalle /> ```
@@ -31,38 +29,19 @@ const PaginaDetalle = () => {
   const favoritos = useAppSelector(state => state.favoritos)
   const dispatch = useAppDispatch()
 
-  const idEpisodios = () => {
-    const arrayEpisodios: string[] = []
-    personaje?.episode.map(elem => {
-      const substr = elem.substring(elem.lastIndexOf('/')+1)
-      arrayEpisodios.push(substr)
-    })
-    return arrayEpisodios;
-  }
-
-  const getData = async() => {
-    if(id){
-      const res = await getPersonaje(id)
-      setPersonaje(res)
-    }
-  }
-  const getEpisodios = async() => {
-    const getEpisodios = await getMultipleEpisodios(arrayEpisodios)
-    getEpisodios && setEpisodios(getEpisodios)
-  }
   useEffect(() => {
-    getData()
+    id && getData({id: id, setPersonaje})
   }, [])
+
   useEffect(() => {
     favoritos.results.map(elem => {
       elem.id === personaje?.id && setIsFavorito(true)
     })
-    setArrayEpisodios(idEpisodios())    
-    console.log(isFavorito);
-    
+    personaje && setArrayEpisodios(idEpisodios(personaje))    
   }, [personaje, isFavorito])
+
   useEffect(() => {
-    getEpisodios()
+    getEpisodios({arrayEpisodios: arrayEpisodios, setEpisodios})
   }, [arrayEpisodios])
 
   return <div className="container">

@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { getPersonajes } from '../../queries/personajes.queries';
 import { setPersonajesReducer } from '../../redux/personajesSlice';
 import { Personaje } from '../../types/personaje.types';
 import './grilla-personajes.css';
 import TarjetaPersonaje from './tarjeta-personaje.componente';
+import { useLocation } from 'react-router-dom';
+import { array, arrayOf, object, objectOf } from 'prop-types';
 
 /**
  * Grilla de personajes para la pagina de inicio
@@ -20,8 +21,10 @@ interface Props {
 const GrillaPersonajes = ({personajes}: Props) => {
   const {page} = useAppSelector(state => state.personajes)
   const filter = useAppSelector(state => state.filtro)
+  const statusConsulta = useAppSelector(state => state.personajes.status)
+  const location = useLocation();
   const dispatch = useAppDispatch()
-  
+
   useEffect(() => {
     dispatch(setPersonajesReducer({page: page, filter: filter}))
   }, [page, filter])
@@ -32,9 +35,13 @@ const GrillaPersonajes = ({personajes}: Props) => {
     }
   }, [filter])
 
-
-  if(personajes === null) {
-    return <p style={{textAlign: 'center'}}>No se encontraron personajes con ese nombre</p>
+  if(location.pathname == '/'){
+    if(statusConsulta === 'pending'){
+      return <h3>Cargando...</h3>
+    }
+    if(statusConsulta === 'error' && location.pathname == '/'){
+      return <h3 style={{textAlign: 'center'}}>No encontramos ningún personaje... Intente de nuevo 🧐</h3>
+    }
   }
 
   return (
@@ -47,6 +54,8 @@ const GrillaPersonajes = ({personajes}: Props) => {
   )
 }
 
-
- 
 export default GrillaPersonajes;
+
+GrillaPersonajes.propTypes ={
+  personajes: arrayOf(object)
+}

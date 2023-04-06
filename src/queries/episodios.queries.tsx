@@ -1,11 +1,12 @@
-import { Episodio, InfoState, Personaje } from "../types/personaje.types";
+import { Episodio } from "../types/personaje.types";
 
 const baseUrl = 'https://rickandmortyapi.com/api/episode'
 
-// export interface getMultipleEpisodiosResult {
-//   info: InfoState | null,
-//   results: Episodio[] | null
-// }
+/**
+ * 
+ * @param {Array} idEpisodios array con los id de episodios a buscar
+ * @returns los episodios en los que participó X personaje
+ */
 export const getMultipleEpisodios = async (idEpisodios: string[]): Promise<Episodio[]> => {
   try{
     const res = await fetch(`${baseUrl}/${idEpisodios}`);

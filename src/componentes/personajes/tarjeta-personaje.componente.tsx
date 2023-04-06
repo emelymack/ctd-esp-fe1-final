@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { object } from 'prop-types';
 import { useAppDispatch } from '../../hooks/hooks';
 import { setFavoritos } from '../../redux/favoritosSlice';
 import { Personaje } from '../../types/personaje.types';
@@ -10,9 +10,8 @@ import { Link } from 'react-router-dom';
  * Tarjeta para cada personaje dentro de la grilla de personajes. 
  * 
  * Deberás agregar las propiedades necesarias para mostrar los datos de los personajes
- * 
- * 
- * @returns un JSX element 
+ * @param {object} Personaje propiedades del objeto desestructurado de tipo Personaje con su info
+ * @returns componente card de personaje 
  */
 
 const TarjetaPersonaje = ({id, name, isFavorito, image}: Personaje) => {
@@ -32,3 +31,6 @@ const TarjetaPersonaje = ({id, name, isFavorito, image}: Personaje) => {
 }
 
 export default TarjetaPersonaje;
+TarjetaPersonaje.propTypes = {
+  personaje: object
+}

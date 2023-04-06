@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Personaje } from '../types/personaje.types';
 
-interface favoritosState{
+export interface favoritosState{
   results: Personaje[]
 }
 

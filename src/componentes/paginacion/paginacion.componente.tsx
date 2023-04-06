@@ -8,8 +8,7 @@ import './paginacion.css';
  * 
  * Deberás agregar las propiedades necesarias para que funcione correctamente
  * 
- * 
- * @returns un JSX element 
+ * @returns componente botones de paginación 
  */
 const Paginacion = () => {
   const pagina = useAppSelector(state => state.personajes.page)

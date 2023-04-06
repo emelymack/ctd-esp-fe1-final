@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getPersonajes, getPersonajesResult } from '../queries/personajes.queries';
 import { PersonajesState } from '../types/personaje.types';
-
+ 
 const initialState: PersonajesState ={
   data: {
     info: {
@@ -19,7 +19,8 @@ const initialState: PersonajesState ={
       }
     ]
   },
-  page: 1
+  page: 1,
+  status: null
 }
 
 export const setPersonajesReducer = createAsyncThunk("personajes/getPersonajes", getPersonajes)
@@ -42,6 +43,9 @@ const personajesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(setPersonajesReducer.pending, (state) => {
+        state.status = 'pending'
+      })
       .addCase(setPersonajesReducer.fulfilled, (state, action: PayloadAction<getPersonajesResult>) =>{
         if(action.payload.results && action.payload.info) {
           state.data.results = action.payload.results.map(item => {
@@ -49,13 +53,14 @@ const personajesSlice = createSlice({
             return {...item, isFavorito}
           })
           state.data.info = action.payload.info
+          state.status = 'fulfilled'
         } else{
           state.data.results = null;
           state.data.info = null;
         }
       })
-      .addCase(setPersonajesReducer.rejected, () => {
-        alert("Error")
+      .addCase(setPersonajesReducer.rejected, (state) => {
+        state.status = 'error'
       })
   }
 })
