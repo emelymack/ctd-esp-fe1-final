@@ -44,6 +44,9 @@ const PaginaDetalle = () => {
     getEpisodios({arrayEpisodios: arrayEpisodios, setEpisodios})
   }, [arrayEpisodios])
 
+  while(personaje === undefined){
+    return <div className="container"><h2>Cargando personaje...</h2></div>
+  }
   return <div className="container">
       <h3>{personaje?.name}</h3>
       <div className={"detalle"}>
